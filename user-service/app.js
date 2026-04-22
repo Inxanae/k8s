@@ -6,7 +6,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/users", (req, res) => {
-  res.json([{ id: 1, name: "Vigneshvellaidurai" }]);
+  res.json([{ id: 1, name: "VVigneshvellaidurai" }]);
 });
 
 app.listen(3000, () => console.log("Server running on port 3000"));
