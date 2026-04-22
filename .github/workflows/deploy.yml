@@ -29,10 +29,19 @@ jobs:
       run: docker push ${{ secrets.DOCKER_USERNAME }}/order-service:latest
 
     - name: Set Kubeconfig
+      env:
+        KUBECONFIG_DATA: ${{ secrets.KUBECONFIG }}
       run: |
         mkdir -p $HOME/.kube
-        echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+        printf '%s' "$KUBECONFIG_DATA" > $HOME/.kube/config
         chmod 600 $HOME/.kube/config
+
+    - name: Debug Kubeconfig
+      run: |
+        echo "=== First 5 lines ==="
+        head -5 $HOME/.kube/config
+        echo "=== kubectl config view ==="
+        kubectl config view
 
     - name: Deploy to Kubernetes
       run: |
